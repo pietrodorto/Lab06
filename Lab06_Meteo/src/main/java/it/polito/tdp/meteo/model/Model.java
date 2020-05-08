@@ -10,18 +10,25 @@ public class Model {
 	private final static int NUMERO_GIORNI_CITTA_CONSECUTIVI_MIN = 3;
 	private final static int NUMERO_GIORNI_CITTA_MAX = 6;
 	private final static int NUMERO_GIORNI_TOTALI = 15;
+	
 	private MeteoDAO meteodao;
+	private List<Citta> allCitta;
 	
 	public Model() {
 
 		this.meteodao = new MeteoDAO();
+		this.allCitta = meteodao.getAllCitta();
+		
 	}
 
-	public List<String> getLocalita() {
-		return this.meteodao.getLocalita();
+	
+	public List<Citta> getAllCitta() {
+		return allCitta;
 	}
+
+
 	// of course you can change the String output with what you think works best
-	public String getUmiditaMedia(int mese) {
+	public double getUmiditaMedia(int mese, String localita) {
 		
 		return this.meteodao.getUmiditaMedia(mese, localita) ;
 	}
