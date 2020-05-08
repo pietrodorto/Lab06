@@ -70,7 +70,7 @@ public class MeteoDAO {
 		}
 	}
 
-	public double getUmiditaMedia(int mese, String localita) {
+	public double getUmiditaMedia(int mese, Citta citta) {
 		final String sql = "SELECT AVG(Umidita) AS u FROM situazione WHERE Localita=? AND MONTH(DATA)= ?";
 
 		
@@ -79,7 +79,7 @@ public class MeteoDAO {
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 
-			st.setString(1, localita);
+			st.setString(1, citta.getNome());
 			st.setInt(2, mese);
 			ResultSet rs = st.executeQuery();
 

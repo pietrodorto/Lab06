@@ -31,9 +31,9 @@ public class Model {
 
 
 	// of course you can change the String output with what you think works best
-	public double getUmiditaMedia(int mese, String localita) {
+	public double getUmiditaMedia(int mese, Citta citta) {
 		
-		return this.meteodao.getUmiditaMedia(mese, localita) ;
+		return this.meteodao.getUmiditaMedia(mese, citta) ;
 	}
 	
 	// of course you can change the String output with what you think works best
@@ -43,6 +43,15 @@ public class Model {
 	public List<Citta> trovaSequenza(int mese) {
 		
 		List<Citta> parziale = new ArrayList<Citta>();
+		this.soluzione = null;
+		
+		
+		for(Citta c : allCitta) {
+			c.setRilevamenti(meteodao.getAllRilevamentiLocalitaMese(mese, c.getNome()));
+		}
+		
+		cerca(0,parziale);
+		return this.soluzione;
 	
 	}
 	
@@ -103,12 +112,20 @@ public class Model {
 
 	private double calcolaCosto(List<Citta> parziale) {
 		
-		int costo = 0;
-		for(Citta c : parziale) {
-			costo += c.getRilevamenti().get
+		double costo = 0;
+		
+		for(int i = 0; i<NUMERO_GIORNI_TOTALI; i++) {
+			Citta c = parziale.get(i);
+			costo += c.getRilevamenti().get(i).getUmidita();
 		}
-		return 0;
+		
+		for(int i =0 ; i<NUMERO_GIORNI_TOTALI ; i++) {
+			
+			if(parziale.get(i).equals(parziale.get(i-1))) {
+				costo+= COST;
+			}
+		}
+		return costo;
 	}
-	
 
 }
