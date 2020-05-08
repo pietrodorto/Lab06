@@ -40,9 +40,61 @@ public class MeteoDAO {
 	}
 
 	public List<Rilevamento> getAllRilevamentiLocalitaMese(int mese, String localita) {
-
 		return null;
 	}
 
+	public double getUmiditaMedia(int mese, String localita) {
+		final String sql = "SELECT AVG(Umidita) AS u FROM situazione WHERE Localita=? AND MONTH(DATA)= ?";
+
+		
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setString(1, localita);
+			st.setInt(2, mese);
+			ResultSet rs = st.executeQuery();
+
+			
+			rs.next();
+		    double u = rs.getDouble("u");
+		
+			conn.close();
+			return u;
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
+	public List<String> getLocalita() {
+		final String sql = "SELECT distinct Localita FROM situazione";
+
+		List<String> localita = new ArrayList<String>();
+
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			ResultSet rs = st.executeQuery();
+
+			
+			while(rs.next()) {
+		    localita.add(rs.getString("Localita"));
+			}
+			conn.close();
+			return localita;
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+	}
 
 }
