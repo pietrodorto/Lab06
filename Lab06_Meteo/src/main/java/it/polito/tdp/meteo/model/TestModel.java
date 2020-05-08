@@ -12,6 +12,8 @@ public class TestModel {
 		for(Citta c : allCitta)
 			System.out.println(m.getUmiditaMedia(12,c));
 		
+		System.out.println(m.calcolaCosto(m.trovaSequenza(2)));
+		
 		System.out.println(m.trovaSequenza(5));
 		
 
