@@ -50,7 +50,7 @@ public class MeteoDAO {
 			PreparedStatement st = conn.prepareStatement(sql);
 
 			st.setString(1, localita);
-			st.setInt(2, mese);
+			st.setString(2, Integer.toString(mese));
 			
 			ResultSet rs = st.executeQuery();
 
@@ -80,7 +80,7 @@ public class MeteoDAO {
 			PreparedStatement st = conn.prepareStatement(sql);
 
 			st.setString(1, citta.getNome());
-			st.setInt(2, mese);
+			st.setString(2, Integer.toString(mese));
 			ResultSet rs = st.executeQuery();
 
 			

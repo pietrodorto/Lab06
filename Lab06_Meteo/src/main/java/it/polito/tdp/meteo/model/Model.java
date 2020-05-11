@@ -43,7 +43,7 @@ public class Model {
 	public List<Citta> trovaSequenza(int mese) {
 		
 		List<Citta> parziale = new ArrayList<Citta>();
-		this.soluzione = null;
+		soluzione = null;
 		
 		
 		for(Citta c : allCitta) {
@@ -51,7 +51,7 @@ public class Model {
 		}
 		
 		cerca(0,parziale);
-		return this.soluzione;
+		return soluzione;
 	
 	}
 	
@@ -121,7 +121,7 @@ public class Model {
 		
 		for(int i =0 ; i<NUMERO_GIORNI_TOTALI ; i++) {
 			
-			if(parziale.get(i).equals(parziale.get(i-1))) {
+			if(!parziale.get(i).equals(parziale.get(i-1))) {
 				costo+= COST;
 			}
 		}
